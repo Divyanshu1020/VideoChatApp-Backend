@@ -10,12 +10,13 @@ const friendRequestShema = new Schema<FriendRequest>({
     sender: {
         type: Schema.Types.ObjectId,
         ref: "User",
-        required: true
+        required: true,
     },
     receiver: {
         type: Schema.Types.ObjectId,
         ref: "User",
-        required: true
+        required: true,
+        index: true,
     },
     status: {
         type: String,

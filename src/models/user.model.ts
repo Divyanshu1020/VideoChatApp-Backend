@@ -16,7 +16,7 @@ export interface UserSchema extends Document {
   comparePassword: (candidatePassword: string) => Promise<boolean>;
 }
 export interface AccessToken {
-  _id: string;
+  _id: Schema.Types.ObjectId;
   email: string;
   fullName: string;
   userName: string;
@@ -85,7 +85,7 @@ userSchema.methods.generateAccessToken = function () {
     {
       _id: this._id,
       email: this.email,
-      username: this.username,
+      userName: this.userName,
       fullName: this.fullName,
     },
     String(process.env.ACCESS_TOKEN_SECRET),
