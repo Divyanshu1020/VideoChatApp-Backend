@@ -25,7 +25,7 @@ A robust Node.js backend server powering a real-time chat application with secur
 
 1. Clone the repository:
 ```bash
-git clone <your-backend-repo-url>
+git clone <https://github.com/Divyanshu1020/VideoChatApp-Backend.git>
 ```
 
 2. Install dependencies:
