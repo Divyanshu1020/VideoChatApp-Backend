@@ -54,5 +54,6 @@ export const handleNewMessage = async (
 };
 
 export const handleDisconnect = (socket: Socket) => {
-  console.log("User Disconnected", socket.id);
+  userSocketMap.delete(socket.user?._id.toString() || "")
+  console.log("handleDisconnect:", userSocketMap,);;
 };
