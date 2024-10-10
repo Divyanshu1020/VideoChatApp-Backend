@@ -41,6 +41,10 @@ app.get("/CreateUsers", (req, res) => {
   res.send("CreateUsers");
 });
 
+app.get("/", (req, res) => {
+  res.send("Hello World!");
+})
+
 app.use(errorHandler);
 
 connectDB()
