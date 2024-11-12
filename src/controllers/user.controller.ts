@@ -118,7 +118,7 @@ export const loginUser = asyncHandler(async (req: Request, res: Response) => {
   const options = {
     httpOnly: true,
     secure: true,
-    sameSite: "none" as const
+    sameSite: "none" as const,
   };
 
   // res.setHeader('Set-Cookie', [
@@ -128,7 +128,7 @@ export const loginUser = asyncHandler(async (req: Request, res: Response) => {
 
   return res
     .status(200)
-    .cookie("accessToken", accessToken, options )
+    .cookie("accessToken", accessToken, options)
     .cookie("refreshToken", refreshToken, options)
     .json(
       new ApiResponse(
@@ -158,7 +158,7 @@ export const logoutUser = asyncHandler(async (req: Request, res: Response) => {
   const options = {
     httpOnly: true,
     secure: true,
-    sameSite: "none" as const
+    sameSite: "none" as const,
   };
 
   return res
@@ -224,8 +224,8 @@ export const sendRequest = asyncHandler(async (req: Request, res: Response) => {
   const myChats = await Chat.find({
     members: { $all: [req.user?._id.toString(), receiverId] },
     isGroupChat: false,
-  })
-  
+  });
+
   if (myChats.length > 0) {
     return res.status(400).json({
       success: false,
@@ -240,16 +240,16 @@ export const sendRequest = asyncHandler(async (req: Request, res: Response) => {
   const notification = {
     ...request,
     sender: {
-       _id: req.user?._id,
+      _id: req.user?._id,
       fullName: req.user?.fullName,
       userName: req.user?.userName,
-     },
-     receiver: {
-       _id: receiverId,
+    },
+    receiver: {
+      _id: receiverId,
       fullName: "",
       userName: "",
-     },
-  }
+    },
+  };
 
   // console.log("notification", notification);
 

@@ -164,7 +164,6 @@ export const addMembersInGroup = asyncHandler(
 
     // const allUserUserName = allNewMembers.map((member) => member.userName).join(", ")
 
-
     const allNewMembersUnique = members.filter(
       (member) => !chat.members.includes(member._id)
     );
@@ -186,14 +185,13 @@ export const addMembersInGroup = asyncHandler(
       .map((member) => member.userName)
       .join(", ");
 
+    emitEvent(req, "REFETCH", allNewMembersId, {});
 
-      emitEvent(req, "REFETCH", allNewMembersId, {});
+    emitEvent(req, "WELLCOME", allNewMembersId, {
+      title: "Welcome",
+      description: `You are added to new group ${chat.chatName}`,
+    });
 
-      emitEvent(req, "WELLCOME", allNewMembersId, {
-        title: "Welcome",
-        description: `You are added to new group ${chat.chatName}`,
-      });
-  
     return res.status(200).json({
       success: true,
       allNewMembersUserName,
@@ -246,7 +244,6 @@ export const removeMemberInGroup = asyncHandler(
 
     // Filter out all members that are in the member array
 
-
     chat.members = chat.members.filter(
       (mem) =>
         !member.some((removeMember) => String(removeMember._id) === String(mem))
@@ -254,9 +251,7 @@ export const removeMemberInGroup = asyncHandler(
 
     await chat.save();
 
-  
-
-    const socket = member.map((m) => ( m._id))
+    const socket = member.map((m) => m._id);
 
     emitEvent(req, "WELLCOME", socket, {
       title: "Welcome",
@@ -264,8 +259,6 @@ export const removeMemberInGroup = asyncHandler(
     });
 
     emitEvent(req, "REFETCH", socket, {});
-
-
 
     return res.status(200).json({
       success: true,
@@ -499,7 +492,6 @@ export const attachment = asyncHandler(
         message: "No file uploaded",
       });
     }
-
 
     const messageForRealTime = {
       sender: {
