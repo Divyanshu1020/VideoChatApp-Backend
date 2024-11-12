@@ -118,11 +118,17 @@ export const loginUser = asyncHandler(async (req: Request, res: Response) => {
   const options = {
     httpOnly: true,
     secure: true,
+    sameSite: "none" as const
   };
+
+  // res.setHeader('Set-Cookie', [
+  //   `accessToken=${accessToken}; HttpOnly; Secure; SameSite=None;`,
+  //   `refreshToken=${refreshToken}; HttpOnly; Secure; SameSite=None;`
+  // ]);
 
   return res
     .status(200)
-    .cookie("accessToken", accessToken, options)
+    .cookie("accessToken", accessToken, options )
     .cookie("refreshToken", refreshToken, options)
     .json(
       new ApiResponse(
@@ -152,6 +158,7 @@ export const logoutUser = asyncHandler(async (req: Request, res: Response) => {
   const options = {
     httpOnly: true,
     secure: true,
+    sameSite: "none" as const
   };
 
   return res
